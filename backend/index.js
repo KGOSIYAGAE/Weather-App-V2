@@ -14,6 +14,7 @@ const WEATHER_URL = "https://api.openweathermap.org/data/3.0/onecall?";
 
 //Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Method Get coordinates of location
 const getCoordinates = async () => {
