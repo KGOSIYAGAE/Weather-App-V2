@@ -57,6 +57,7 @@ body {
 .info-section-a {
   display: flex;
   flex-direction: column;
+  padding-top: 5px;
 }
 
 .info-temp {
@@ -64,13 +65,13 @@ body {
   flex-direction: row;
 }
 .weather-temp-txt {
-  font-size: 90px;
+  font-size: 60px;
 }
 .degress-icon {
   font-size: 50px;
 }
 .info-date {
-  padding: 10px 0px 25px 0px;
+  padding: 10px 0px 20px 0px;
   border-bottom: 1px #f2efef solid;
 }
 .info-day {
@@ -84,13 +85,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .info-description {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 5px;
 }
 .description-icon {
   font-size: 25px;
@@ -106,6 +107,26 @@ body {
   font-size: 18px;
   color: #88cafc;
   padding-right: 8px;
+}
+
+.image-box {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.city-image {
+  height: 80px;
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.city-name-txt {
+  position: absolute;
+  color: white;
+  justify-content: center;
 }
 
 .right {

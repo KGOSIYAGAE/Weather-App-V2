@@ -7,7 +7,7 @@ import cors from "cors";
 const app = express();
 const GEO_URL = "http://api.openweathermap.org/";
 const location = "London";
-const APIKey = "69b03d0815bd8cf2798a9a453358a2b6";
+const APIKey = "2f52a3f70a2267490561f6d2de992950";
 const limit = 1;
 
 const WEATHER_URL = "https://api.openweathermap.org/data/3.0/onecall?";
@@ -43,7 +43,7 @@ app.post("/weather", async (req, res) => {
   const { lat, lon } = await getCoordinates(cityName || "Kimberley");
   //&exclude=minutely,hourly,alert&appid=${APIKey}`
   try {
-    const response = await axios.get(WEATHER_URL + `lat=${lat}&lon=${lon}units=metric&appid=${APIKey}`);
+    const response = await axios.get(WEATHER_URL + `lat=${lat}&lon=${lon}&units=metric&appid=${APIKey}`);
     res.status(200).json(response.data);
   } catch (error) {
     console.log(error.message);
