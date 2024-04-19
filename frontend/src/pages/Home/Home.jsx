@@ -12,11 +12,25 @@ import React from "react";
 
 export default function Home() {
   const [cityName, setCityName] = useState("");
+
   const [temp, setTemp] = useState(0);
   const [timeZone, setTimeZone] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
   const [weatherDescription, setWeatherDescription] = useState("");
   const [rainPercent, setRainPercent] = useState();
+  const [UVIndex, setUVIndex] = useState(0);
+  const [windSpeed, setWindSpeed] = useState(0);
+  const [sunrise, setSunrise] = useState(0);
+  const [sunset, setSunset] = useState(0);
+  const [humidity, setHumidity] = useState(0);
+  const [visibility, setVisibility] = useState(0);
+  const [locationDate, setLocationDate] = useState(0);
+
+  const [dailyWeather, setDailyWeather] = useState([]);
+  const [dayDate, setDayDate] = useState(0);
+  const [dayTemp, setDayTemp] = useState(0);
+  const [nightTemp, setNightTemp] = useState(0);
+  const [dayWeatherIcon, setDayWeatherIcon] = useState("");
 
   const dayOptions = {
     weekday: "long",
@@ -105,10 +119,25 @@ export default function Home() {
     await axios
       .post("http://localhost:3000/weather", data)
       .then((response) => {
-        console.log("Success.");
         setTemp(response.data.current.temp);
         setTimeZone(response.data.timezone);
         setWeatherDescription(response.data.current.weather[0].description);
+        setUVIndex(response.data.current.uvi);
+        setWindSpeed(response.data.current.wind_speed);
+        setSunrise(response.data.current.sunrise);
+        setSunset(response.data.current.sunset);
+        setHumidity(response.data.current.humidity);
+        setVisibility(response.data.current.visibility);
+        setLocationDate(response.data.current.dt);
+
+        {
+          /*Day Details*/
+        }
+        setDailyWeather(...response.data.daily);
+        console.log(dailyWeather);
+        /*setDayTemp();
+        setNightTemp();
+        setDayWeatherIcon();*/
 
         response.data.hasOwnProperty("minutely") ? setRainPercent(response.data.minutely[0].precipitation + " %") : setRainPercent("No Info Available");
         hadnleWeatherIcon(response.data.current.weather[0].icon);
@@ -126,7 +155,8 @@ export default function Home() {
   return (
     <body>
       <div className="app-container">
-        <div className="left">
+        {/*Left Side section*/}
+        <section className="left">
           <div className="search-bar">
             <LuSearch className="search-icon-1" />
             <input type="text" placeholder="Search for places ..." className="search-input" value={cityName} onChange={(e) => setCityName(e.target.value)} />
@@ -157,12 +187,86 @@ export default function Home() {
               </div>
               <div className="image-box">
                 <img src="../public/new_york.jpg" alt="" className="city-image" />
-                <h6 className="city-name-txt">{cityName.charAt(0).toUpperCase() + cityName.slice(1)}</h6>
+                <h4 className="city-name-txt">{cityName.charAt(0).toUpperCase() + cityName.slice(1)}</h4>
               </div>
             </section>
           </div>
-        </div>
-        <div className="right">Right</div>
+        </section>
+
+        {/*Right Side section*/}
+        <section className="right">
+          <div className="right-container">
+            {/*Nav section*/}
+            <section className="nav">
+              <div className="tabs-section">
+                <span className="tab-title-today">Today</span>
+                <span className="tab-title-week">Week</span>
+              </div>
+              <div className="display-mode"></div>
+            </section>
+
+            {/*Grid section*/}
+            <section className="days-grid">
+              {/*Code repeat
+              <div className="box">
+                <span className="box-title">Mon</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="rainy" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              <div className="box">
+                <span className="box-title">Tue</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="pouring" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              <div className="box">
+                <span className="box-title">Wed</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="sunny" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              <div className="box">
+                <span className="box-title">Thu</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="lightning" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              <div className="box">
+                <span className="box-title">Fri</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="windy" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              <div className="box">
+                <span className="box-title">Sat</span>
+                <div className="box-icon-container">
+                  <WeatherSvg state="snowy" width={60} height={60} />
+                </div>
+                <span className="box-temp-txt">
+                  15° <span className="box-temp-txt2">-1°</span>
+                </span>
+              </div>
+              {/*Code repeat*
+              */}
+            </section>
+          </div>
+        </section>
       </div>
     </body>
   );
