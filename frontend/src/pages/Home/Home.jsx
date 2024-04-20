@@ -207,6 +207,10 @@ export default function Home() {
 
             {/*Grid section*/}
             <section className="days-grid">
+              {dailyWeather.map((item) => (
+                <div key={item.id} book={item} />
+              ))}
+
               {/*Code repeat
               <div className="box">
                 <span className="box-title">Mon</span>
