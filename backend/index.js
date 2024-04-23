@@ -39,10 +39,11 @@ const getCoordinates = async (cityName) => {
 
 //Get coordinates of location
 app.post("/weather", async (req, res) => {
-  const { cityName } = req.body;
-  const { lat, lon } = await getCoordinates(cityName || "Kimberley");
   //&exclude=minutely,hourly,alert&appid=${APIKey}`
   try {
+    const { cityName } = req.body;
+    const { lat, lon } = await getCoordinates(cityName || "Kimberley");
+
     const response = await axios.get(WEATHER_URL + `lat=${lat}&lon=${lon}&units=metric&appid=${APIKey}`);
     res.status(200).json(response.data);
   } catch (error) {

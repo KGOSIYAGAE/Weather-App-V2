@@ -6,10 +6,11 @@ body {
 .app-container {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 }
 .left {
   width: 250px;
-  padding: 40px 40px 40px 40px;
+  padding: 20px 40px 0px 40px;
 }
 .search-bar {
   display: flex;
@@ -57,9 +58,12 @@ body {
 .info-section-a {
   display: flex;
   flex-direction: column;
-  padding-top: 5px;
 }
 
+.section-a-img {
+  width: 180px;
+  height: 180px;
+}
 .info-temp {
   display: flex;
   flex-direction: row;
@@ -104,7 +108,8 @@ body {
 }
 
 .rain-icon {
-  font-size: 18px;
+  width: 25px;
+  height: 25px;
   color: #88cafc;
   padding-right: 8px;
 }
@@ -141,7 +146,8 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 40px 40px 0px 40px;
+  padding: 20px 40px 0px 50px;
+  align-items: center;
 }
 
 .nav {
@@ -157,26 +163,27 @@ body {
 
 .tab-title-today {
   color: #b2b2b2;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
 }
 
 .tab-title-week {
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   border-bottom: 1px black solid;
 }
 
 .days-grid {
   display: grid;
-  grid-template-columns: repeat(7, 125px);
-  gap: 10px;
+  grid-template-columns: repeat(7, 115px);
+  gap: 20px;
   width: 100%;
+  padding-bottom: 30px;
 }
 
 .box {
-  height: 120px;
+  height: 110px;
   background-color: white;
   border-radius: 15px;
   display: flex;
@@ -186,6 +193,10 @@ body {
   justify-content: space-between;
 }
 
+.daily-weather-icon {
+  width: 50px;
+  height: 50px;
+}
 .box-icon-container {
   height: 50px;
   width: 50px;
@@ -197,4 +208,70 @@ body {
 
 .box-temp-txt2 {
   color: #b2b2b2;
+  padding-left: 5px;
+}
+
+/**/
+.current-day {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.current-day-title {
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  padding-bottom: 20px;
+}
+
+.current-day-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 295px);
+  gap: 20px;
+  width: 100%;
+}
+
+.day-info-box {
+  height: 130px;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px 20px 40px;
+  justify-content: space-between;
+}
+
+.day-box-title {
+  color: #b2b2b2;
+  padding-left: 5px;
+}
+
+.uvi-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.uvi-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.wind-speed,
+.humidity-total {
+  font-size: 30px;
+}
+
+.wind-direction,
+.humidity-direction {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.wind-d-text,
+.humidity-d-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
 }

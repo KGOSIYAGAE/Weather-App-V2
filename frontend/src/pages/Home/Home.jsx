@@ -30,7 +30,7 @@ export default function Home() {
   const [dayDate, setDayDate] = useState(0);
   const [dayTemp, setDayTemp] = useState(0);
   const [nightTemp, setNightTemp] = useState(0);
-  const [dayWeatherIcon, setDayWeatherIcon] = useState("");
+  const [dayIcon, setDayIcon] = useState("");
 
   const dayOptions = {
     weekday: "long",
@@ -45,72 +45,149 @@ export default function Home() {
   const hadnleWeatherIcon = (weatherIcon) => {
     switch (weatherIcon) {
       case "01d":
-        setWeatherIcon("sunny");
+        setWeatherIcon("../public/icons/clear_day.svg");
         break;
       case "01n":
-        setWeatherIcon("clear-night");
+        setWeatherIcon("../public/icons/clear_night.svg");
         break;
 
       case "02d":
-        setWeatherIcon("partlycloudy");
+        setWeatherIcon("../public/icons/partly_cloudy_day.svg");
         break;
       case "02n":
-        setWeatherIcon("partlycloudy");
+        setWeatherIcon("../public/icons/partly_cloudy_night.svg");
         break;
 
       case "03d":
-        setWeatherIcon("cloudy");
+        setWeatherIcon("../public/icons/cloudy.svg");
         break;
       case "03n":
-        setWeatherIcon("partlycloudy");
+        setWeatherIcon("../public/icons/cloudy.svg");
         break;
 
       case "04d":
-        setWeatherIcon("cloudy");
+        setWeatherIcon("../public/icons/overcast.svg");
         break;
       case "04n":
-        setWeatherIcon("cloudy");
+        setWeatherIcon("../public/icons/overcast.svg");
         break;
 
       case "09d":
-        setWeatherIcon("pouring");
+        setWeatherIcon("../public/icons/rain.svg");
         break;
       case "09n":
-        setWeatherIcon("pouring");
+        setWeatherIcon("../public/icons/rain.svg");
         break;
 
       case "10d":
-        setWeatherIcon("rainy");
+        setWeatherIcon("../public/icons/partly_cloudy_day_rain.svg");
         break;
       case "10n":
-        setWeatherIcon("rainy");
+        setWeatherIcon("../public/icons/partly_cloudy_night_rain.svg");
         break;
 
       case "11d":
-        setWeatherIcon("lightning-rainy");
+        setWeatherIcon("../public/icons/thunderstorms_rain.svg");
         break;
+
       case "11n":
-        setWeatherIcon("lightning-rainy");
+        setWeatherIcon("../public/icons/thunderstorms_rain.svg");
         break;
 
       case "13d":
-        setWeatherIcon("snowy");
+        setWeatherIcon("../public/icons/snow.svg");
         break;
       case "13n":
-        setWeatherIcon("snowy");
+        setWeatherIcon("../public/icons/snow.svg");
         break;
 
       case "50d":
-        setWeatherIcon("snowy");
+        setWeatherIcon("../public/icons/mist.svg");
         break;
       case "50n":
-        setWeatherIcon("snowy");
+        setWeatherIcon("../public/icons/mist.svg");
         break;
 
       default:
-        setWeatherIcon("None");
+        setWeatherIcon("../public/icons/not_available.svg");
         break;
     }
+  };
+
+  const hadnleDayIcon = (weatherIcon) => {
+    switch (weatherIcon) {
+      case "01d":
+        return "../public/icons/clear_day.svg";
+        break;
+      case "01n":
+        return "../public/icons/clear_night.svg";
+        break;
+
+      case "02d":
+        return "../public/icons/partly_cloudy_day.svg";
+        break;
+      case "02n":
+        return "../public/icons/partly_cloudy_night.svg";
+        break;
+
+      case "03d":
+        return "../public/icons/cloudy.svg";
+        break;
+      case "03n":
+        return "../public/icons/cloudy.svg";
+        break;
+
+      case "04d":
+        return "../public/icons/overcast.svg";
+        break;
+      case "04n":
+        return "../public/icons/overcast.svg";
+        break;
+
+      case "09d":
+        return "../public/icons/rain.svg";
+        break;
+      case "09n":
+        return "../public/icons/rain.svg";
+        break;
+
+      case "10d":
+        return "../public/icons/partly_cloudy_day_rain.svg";
+        break;
+      case "10n":
+        return "../public/icons/partly_cloudy_night_rain.svg";
+        break;
+
+      case "11d":
+        return "../public/icons/thunderstorms_rain.svg";
+        break;
+
+      case "11n":
+        return "../public/icons/thunderstorms_rain.svg";
+        break;
+
+      case "13d":
+        return "../public/icons/snow.svg";
+        break;
+      case "13n":
+        return "../public/icons/snow.svg";
+        break;
+
+      case "50d":
+        return "../public/icons/mist.svg";
+        break;
+      case "50n":
+        return "../public/icons/mist.svg";
+        break;
+
+      default:
+        return "../public/icons/not_available.svg";
+        break;
+    }
+  };
+
+  const handleUVIIcon = (UVIndex) => {
+    return `../public/icons/uv_${Math.floor(UVIndex)}.svg`;
   };
 
   const handleWeatherSearch = async () => {
@@ -133,22 +210,18 @@ export default function Home() {
         {
           /*Day Details*/
         }
-        setDailyWeather(...response.data.daily);
-        console.log(dailyWeather);
+        setDailyWeather([...response.data.daily]);
+        console.log(response.data);
         /*setDayTemp();
         setNightTemp();
         setDayWeatherIcon();*/
 
         response.data.hasOwnProperty("minutely") ? setRainPercent(response.data.minutely[0].precipitation + " %") : setRainPercent("No Info Available");
         hadnleWeatherIcon(response.data.current.weather[0].icon);
-
-        console.log(response);
-        console.log(weatherIcon);
       })
       .catch((error) => {
         alert("There was an error, check console.");
         console.log(error);
-        console.log(data);
       });
   };
 
@@ -166,7 +239,8 @@ export default function Home() {
           </div>
           <div className="weather-info">
             <section className="info-section-a">
-              <WeatherSvg state={weatherIcon} width={180} height={180} />
+              {/*<WeatherSvg state={weatherIcon} width={180} height={180} />*/}
+              <img className="section-a-img" src={weatherIcon}></img>
               <div className="info-temp">
                 <span className="weather-temp-txt">{Math.floor(temp)}</span>
                 <span className="degress-icon">°C</span>
@@ -182,7 +256,7 @@ export default function Home() {
                 <span className="description-text">{weatherDescription}</span>
               </div>
               <div className="info-description">
-                <GiHeavyRain className="rain-icon" />
+                <img className="rain-icon" src="../public/icons/raindrop.svg"></img>
                 <span className="rain-text">Rain - {rainPercent}</span>
               </div>
               <div className="image-box">
@@ -207,67 +281,68 @@ export default function Home() {
 
             {/*Grid section*/}
             <section className="days-grid">
-              {dailyWeather.map((item) => (
-                <div key={item.id} book={item} />
+              {dailyWeather.slice(1).map((day) => (
+                <div key={day.dt} className="box">
+                  <span className="box-title">{new Date(day.dt * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
+                  <div className="box-icon-container">
+                    {/*<WeatherSvg state={} width={60} height={60} />*/}
+                    <img className="daily-weather-icon" src={hadnleDayIcon(day.weather[0].icon)}></img>
+                  </div>
+                  <span className="box-temp-txt">
+                    {Math.floor(day.temp.day)}°<span className="box-temp-txt2">{Math.floor(day.temp.night)}°</span>
+                  </span>
+                </div>
               ))}
+            </section>
 
-              {/*Code repeat
-              <div className="box">
-                <span className="box-title">Mon</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="rainy" width={60} height={60} />
+            {/*Grid section*/}
+            <section className="current-day">
+              <span className="current-day-title">Today's Highlights</span>
+              <div className="current-day-grid">
+                <div className="day-info-box">
+                  <span className="day-box-title">UV Index</span>
+                  <div className="uvi-box">
+                    <img src={handleUVIIcon(UVIndex)} alt="windsock" className="uvi-icon" />
+                  </div>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">Tue</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="pouring" width={60} height={60} />
+                {/* */}
+                <div className="day-info-box">
+                  <span className="day-box-title">Wind Status</span>
+                  <div className="wind-details">
+                    <span className="wind-speed">{windSpeed}</span>
+                    <span>km/h</span>
+                  </div>
+                  <div className="wind-direction">
+                    <img src="../public/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
+                    <span className="wind-d-text">WSW</span>
+                  </div>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">Wed</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="sunny" width={60} height={60} />
+
+                {/* */}
+                <div className="day-info-box">
+                  <span className="day-box-title">Sunrise & Sunset</span>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">Thu</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="lightning" width={60} height={60} />
+                {/* */}
+                <div className="day-info-box">
+                  <span className="day-box-title">Humidity</span>
+                  <div className="humidity-details">
+                    <span className="humidity-total">{windSpeed}</span>
+                    <span>km/h</span>
+                  </div>
+                  <div className="humidity-direction">
+                    <img src="../public/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
+                    <span className="humidity-d-text">WSW</span>
+                  </div>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">Fri</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="windy" width={60} height={60} />
+                {/* */}
+                <div className="day-info-box">
+                  <span className="day-box-title">Visibility</span>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">Sat</span>
-                <div className="box-icon-container">
-                  <WeatherSvg state="snowy" width={60} height={60} />
+                {/* */}
+                <div className="day-info-box">
+                  <span className="day-box-title">Air Quality</span>
                 </div>
-                <span className="box-temp-txt">
-                  15° <span className="box-temp-txt2">-1°</span>
-                </span>
               </div>
-              {/*Code repeat*
-              */}
             </section>
           </div>
         </section>
