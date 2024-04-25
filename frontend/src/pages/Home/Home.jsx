@@ -7,25 +7,33 @@ import { GiHeavyRain } from "react-icons/gi";
 import "@fontsource/roboto/";
 import { useState } from "react";
 import axios from "axios";
+import GaugeChart from "react-gauge-chart";
 
 import React from "react";
 
 export default function Home() {
   const [cityName, setCityName] = useState("");
 
+  //current data
   const [temp, setTemp] = useState(0);
   const [timeZone, setTimeZone] = useState("");
   const [weatherIcon, setWeatherIcon] = useState("");
   const [weatherDescription, setWeatherDescription] = useState("");
   const [rainPercent, setRainPercent] = useState();
+  const [locationDate, setLocationDate] = useState(0);
+
+  //daily data
   const [UVIndex, setUVIndex] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
+  const [windGust, setWindGust] = useState(0);
+  const [windDirection, setWindDirection] = useState(0);
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
   const [humidity, setHumidity] = useState(0);
   const [visibility, setVisibility] = useState(0);
-  const [locationDate, setLocationDate] = useState(0);
+  const [pressure, setPressure] = useState(0);
 
+  //Daily data
   const [dailyWeather, setDailyWeather] = useState([]);
   const [dayDate, setDayDate] = useState(0);
   const [dayTemp, setDayTemp] = useState(0);
@@ -200,27 +208,31 @@ export default function Home() {
     await axios
       .post("http://localhost:3000/weather", data)
       .then((response) => {
+        //Current weather data
         setTemp(response.data.current.temp);
         setTimeZone(response.data.timezone);
         setWeatherDescription(response.data.current.weather[0].description);
-        setUVIndex(response.data.current.uvi);
-        setWindSpeed(response.data.current.wind_speed);
-        setSunrise(response.data.current.sunrise);
-        setSunset(response.data.current.sunset);
-        setHumidity(response.data.current.humidity);
-        setVisibility(response.data.current.visibility);
         setLocationDate(response.data.current.dt);
 
-        {
-          /*Day Details*/
-        }
+        //Day Highlight
+        setWindSpeed(response.data.current.wind_speed);
+        setWindGust(response.data.daily[0].wind_gust);
+        setWindDirection(response.data.daily[0].wind_deg);
+        setPressure(response.data.daily[0].pressure);
+        setUVIndex(response.data.daily[0].uvi);
+        setHumidity(response.data.daily[0].humidity);
+        setRainPercent(response.data.daily[0].pop);
+        setVisibility(response.data.current.visibility);
+        setSunrise(response.data.current.sunrise);
+        setSunset(response.data.current.sunset);
+
+        //Week weather code
         setDailyWeather([...response.data.daily]);
         console.log(response.data);
         /*setDayTemp();
         setNightTemp();
         setDayWeatherIcon();*/
 
-        response.data.hasOwnProperty("minutely") ? setRainPercent(response.data.minutely[0].precipitation + " %") : setRainPercent("No Info Available");
         hadnleWeatherIcon(response.data.current.weather[0].icon);
       })
       .catch((error) => {
@@ -251,7 +263,7 @@ export default function Home() {
               </div>
               <div className="info-date">
                 <span className="info-day">{new Date().toLocaleDateString({ timeZone }, dayOptions)},</span>
-                <span className="info-time">{new Date().toLocaleTimeString([], { timezone: "Africa/Johannesburg" }, timeOptions)}</span>
+                <span className="info-time">{new Date(locationDate * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
               </div>
             </section>
             <section className="info-section-b">

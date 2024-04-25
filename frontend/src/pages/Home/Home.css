@@ -288,3 +288,7 @@ body {
   align-items: center;
   gap: 10px;
 }
+
+.pressure-gauge {
+  width: 100px;
+}
