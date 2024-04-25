@@ -258,20 +258,33 @@ body {
 }
 
 .wind-speed,
-.humidity-total {
+.humidity-total,
+.visibility-distance,
+.air-qaulity {
   font-size: 30px;
+  padding-right: 5px;
 }
 
 .wind-direction,
-.humidity-direction {
+.humidity-description,
+.visibilty-description,
+.air-description {
   display: flex;
   flex-direction: row;
   position: relative;
 }
 
 .wind-d-text,
-.humidity-d-text {
+.humidity-d-text,
+.visibility-d-text {
   position: absolute;
   bottom: 10px;
   left: 50px;
+}
+
+.sunrise {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }

@@ -37,7 +37,7 @@ export default function Home() {
   };
 
   const timeOptions = {
-    hour12: false,
+    hour12: true,
     hour: "2-digit",
     minute: "2-digit",
   };
@@ -187,7 +187,11 @@ export default function Home() {
   };
 
   const handleUVIIcon = (UVIndex) => {
-    return `../public/icons/uv_${Math.floor(UVIndex)}.svg`;
+    return `/icons/uv_${Math.floor(UVIndex)}.svg`;
+  };
+
+  const handleVisibility = (visibility) => {
+    return visibility / 1000;
   };
 
   const handleWeatherSearch = async () => {
@@ -256,11 +260,11 @@ export default function Home() {
                 <span className="description-text">{weatherDescription}</span>
               </div>
               <div className="info-description">
-                <img className="rain-icon" src="../public/icons/raindrop.svg"></img>
+                <img className="rain-icon" src="/icons/umbrella.svg"></img>
                 <span className="rain-text">Rain - {rainPercent}</span>
               </div>
               <div className="image-box">
-                <img src="../public/new_york.jpg" alt="" className="city-image" />
+                <img src="/new_york.jpg" alt="" className="city-image" />
                 <h4 className="city-name-txt">{cityName.charAt(0).toUpperCase() + cityName.slice(1)}</h4>
               </div>
             </section>
@@ -313,7 +317,7 @@ export default function Home() {
                     <span>km/h</span>
                   </div>
                   <div className="wind-direction">
-                    <img src="../public/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
+                    <img src="/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
                     <span className="wind-d-text">WSW</span>
                   </div>
                 </div>
@@ -321,26 +325,46 @@ export default function Home() {
                 {/* */}
                 <div className="day-info-box">
                   <span className="day-box-title">Sunrise & Sunset</span>
+                  <div className="sunrise">
+                    <img src="/icons/sunrise.svg" alt="windsock" className="daily-weather-icon" />
+                    <span>{new Date(sunrise * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
+                  </div>
+                  <div className="sunrise">
+                    <img src="/icons/sunset.svg" alt="windsock" className="daily-weather-icon" />
+                    <span>{new Date(sunset * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
+                  </div>
                 </div>
                 {/* */}
                 <div className="day-info-box">
                   <span className="day-box-title">Humidity</span>
                   <div className="humidity-details">
-                    <span className="humidity-total">{windSpeed}</span>
-                    <span>km/h</span>
+                    <span className="humidity-total">{humidity}</span>
+                    <span>%</span>
                   </div>
-                  <div className="humidity-direction">
-                    <img src="../public/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
-                    <span className="humidity-d-text">WSW</span>
+                  <div className="humidity-description">
+                    <img src="/icons/raindrop.svg" alt="windsock" className="daily-weather-icon" />
                   </div>
                 </div>
                 {/* */}
                 <div className="day-info-box">
                   <span className="day-box-title">Visibility</span>
+                  <div className="visibility-details">
+                    <span className="visibility-distance">{handleVisibility(visibility)}</span>
+                    <span>km</span>
+                  </div>
+
+                  <span className="">Average 😉</span>
                 </div>
                 {/* */}
                 <div className="day-info-box">
                   <span className="day-box-title">Air Quality</span>
+                  <div className="air-details">
+                    <span className="air-qaulity"></span>
+                    <span></span>
+                  </div>
+                  <div className="air-description">
+                    <img src="/icons/pressure_low.svg" alt="windsock" className="daily-weather-icon" />
+                  </div>
                 </div>
               </div>
             </section>
