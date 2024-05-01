@@ -273,7 +273,7 @@ export default function Home() {
               </div>
               <div className="info-description">
                 <img className="rain-icon" src="/icons/umbrella.svg"></img>
-                <span className="rain-text">Rain - {rainPercent}</span>
+                <span className="rain-text">Rain - {rainPercent} %</span>
               </div>
               <div className="image-box">
                 <img src="/new_york.jpg" alt="" className="city-image" />
@@ -324,13 +324,27 @@ export default function Home() {
                 {/* */}
                 <div className="day-info-box">
                   <span className="day-box-title">Wind Status</span>
-                  <div className="wind-details">
-                    <span className="wind-speed">{windSpeed}</span>
-                    <span>km/h</span>
-                  </div>
-                  <div className="wind-direction">
-                    <img src="/icons/windsock.svg" alt="windsock" className="daily-weather-icon" />
-                    <span className="wind-d-text">WSW</span>
+                  <div className="wind-box">
+                    <div className="wind-details">
+                      <div className="wind-details-wind">
+                        <span className="wind-speed">{windSpeed}</span>
+                        <div className="wind-speed-text">
+                          <span>KM/H</span>
+                          <span>Wind</span>
+                        </div>
+                      </div>
+                      <div className="wind-details-gust">
+                        <span className="wind-speed">{windGust}</span>
+                        <div className="wind-speed-text">
+                          <span>KM/H</span>
+                          <span>Gust</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="wind-direction">
+                      <img src="../public/icons/compass.svg" alt="windsock" className="compass-icon" />
+                      <span className="wind-d-text">WSW</span>
+                    </div>
                   </div>
                 </div>
 

@@ -265,7 +265,55 @@ body {
   padding-right: 5px;
 }
 
-.wind-direction,
+.wind-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wind-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.wind-details-wind {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  border-bottom: 1px #b2b2b2 solid;
+}
+
+.wind-details-gust {
+  display: flex;
+  flex-direction: row;
+}
+
+.wind-speed-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wind-speed-text span:first-child {
+  color: #a1a0a0;
+}
+
+.wind-speed-text span {
+  font-size: 13px;
+}
+
+.wind-direction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.compass-icon {
+  width: 100px;
+  height: 100px;
+}
+
 .humidity-description,
 .visibilty-description,
 .air-description {
@@ -274,7 +322,6 @@ body {
   position: relative;
 }
 
-.wind-d-text,
 .humidity-d-text,
 .visibility-d-text {
   position: absolute;
