@@ -26,7 +26,8 @@ export default function Home() {
   const [UVIndex, setUVIndex] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
   const [windGust, setWindGust] = useState(0);
-  const [windDirection, setWindDirection] = useState(0);
+  const [windDirection, setWindDirection] = useState("");
+  const [wind_deg, setWind_deg] = useState(0);
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
   const [humidity, setHumidity] = useState(0);
@@ -202,6 +203,45 @@ export default function Home() {
     return visibility / 1000;
   };
 
+  const handleWindDirectin = (wind_deg) => {
+    console.log(wind_deg);
+    switch (true) {
+      case wind_deg > 0 && wind_deg < 44:
+        return setWindDirection("N");
+        break;
+      case wind_deg >= 45 && wind_deg <= 89:
+        return setWindDirection("NE");
+        break;
+
+      case wind_deg >= 90 && wind_deg <= 134:
+        return setWindDirection("E");
+        break;
+      case wind_deg >= 135 && wind_deg <= 179:
+        return setWindDirection("SE");
+        break;
+
+      case wind_deg >= 180 && wind_deg <= 224:
+        return setWindDirection("S");
+        break;
+
+      case wind_deg >= 225 && wind_deg <= 269:
+        return setWindDirection("SW");
+        break;
+
+      case wind_deg >= 270 && wind_deg <= 314:
+        return setWindDirection("W");
+        break;
+
+      case wind_deg >= 315 && wind_deg <= 360:
+        return setWindDirection("NW");
+        break;
+
+      default:
+        return setWindDirection("N/A");
+        break;
+    }
+  };
+
   const handleWeatherSearch = async () => {
     const data = { cityName };
 
@@ -217,7 +257,7 @@ export default function Home() {
         //Day Highlight
         setWindSpeed(response.data.current.wind_speed);
         setWindGust(response.data.daily[0].wind_gust);
-        setWindDirection(response.data.daily[0].wind_deg);
+        setWind_deg(response.data.daily[0].wind_deg);
         setPressure(response.data.daily[0].pressure);
         setUVIndex(response.data.daily[0].uvi);
         setHumidity(response.data.daily[0].humidity);
@@ -233,6 +273,7 @@ export default function Home() {
         setNightTemp();
         setDayWeatherIcon();*/
 
+        handleWindDirectin(wind_deg);
         hadnleWeatherIcon(response.data.current.weather[0].icon);
       })
       .catch((error) => {
@@ -343,7 +384,7 @@ export default function Home() {
                     </div>
                     <div className="wind-direction">
                       <img src="../public/icons/compass.svg" alt="windsock" className="compass-icon" />
-                      <span className="wind-d-text">WSW</span>
+                      <span className="wind-d-text">{windDirection}</span>
                     </div>
                   </div>
                 </div>
