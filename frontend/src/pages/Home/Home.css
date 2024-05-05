@@ -146,8 +146,9 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px 40px 0px 50px;
+  /*padding: 20px 40px 0px 50px;*/
   align-items: center;
+  padding: 40px;
 }
 
 .nav {
@@ -180,6 +181,7 @@ body {
   gap: 20px;
   width: 100%;
   padding-bottom: 30px;
+  justify-content: center;
 }
 
 .box {
@@ -216,6 +218,8 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px red solid;
+  justify-self: center;
 }
 
 .current-day-title {
@@ -230,10 +234,12 @@ body {
   grid-template-columns: repeat(3, 295px);
   gap: 20px;
   width: 100%;
+  border: 1px green solid;
+  justify-content: center;
 }
 
 .day-info-box {
-  height: 130px;
+  height: 115px;
   background-color: white;
   border-radius: 15px;
   display: flex;
