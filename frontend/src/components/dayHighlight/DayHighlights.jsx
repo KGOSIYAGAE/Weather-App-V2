@@ -1,6 +1,8 @@
 import React from "react";
+import "./DayHighlights.css";
 
-export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirection, sunrise, sunset, humidity, visibility }) {
+export default function DayHighlights({ data }) {
+  /* UVIndex, windSpeed, windGust, windDirection, sunrise, sunset, humidity, visibility */
   return (
     <section className="current-day">
       <span className="current-day-title">Today's Highlights</span>
@@ -8,7 +10,7 @@ export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirect
         <div className="day-info-box">
           <span className="day-box-title">UV Index</span>
           <div className="uvi-box">
-            <img src={() => `/icons/uv_${Math.floor(UVIndex)}.svg`} alt="windsock" className="uvi-icon" />
+            <img src={() => `/icons/uv_${Math.floor(data.UVIndex)}.svg`} alt="windsock" className="uvi-icon" />
           </div>
         </div>
         {/* */}
@@ -17,14 +19,14 @@ export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirect
           <div className="wind-box">
             <div className="wind-details">
               <div className="wind-details-wind">
-                <span className="wind-speed">{windSpeed}</span>
+                <span className="wind-speed">{data.windSpeed}</span>
                 <div className="wind-speed-text">
                   <span>KM/H</span>
                   <span>Wind</span>
                 </div>
               </div>
               <div className="wind-details-gust">
-                <span className="wind-speed">{windGust}</span>
+                <span className="wind-speed">{data.windGust}</span>
                 <div className="wind-speed-text">
                   <span>KM/H</span>
                   <span>Gust</span>
@@ -33,7 +35,7 @@ export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirect
             </div>
             <div className="wind-direction">
               <img src="../public/icons/compass.svg" alt="windsock" className="compass-icon" />
-              <span className="wind-d-text">{windDirection}</span>
+              <span className="wind-d-text">{data.windDirection}</span>
             </div>
           </div>
         </div>
@@ -43,18 +45,18 @@ export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirect
           <span className="day-box-title">Sunrise & Sunset</span>
           <div className="sunrise">
             <img src="/icons/sunrise.svg" alt="windsock" className="daily-weather-icon" />
-            <span>{new Date(sunrise * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
+            <span>{new Date(data.sunrise * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
           </div>
           <div className="sunrise">
             <img src="/icons/sunset.svg" alt="windsock" className="daily-weather-icon" />
-            <span>{new Date(sunset * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
+            <span>{new Date(data.sunset * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
           </div>
         </div>
         {/* */}
         <div className="day-info-box">
           <span className="day-box-title">Humidity</span>
           <div className="humidity-details">
-            <span className="humidity-total">{humidity}</span>
+            <span className="humidity-total">{data.humidity}</span>
             <span>%</span>
           </div>
           <div className="humidity-description">
@@ -65,7 +67,7 @@ export default function DayHighlights({ UVIndex, windSpeed, windGust, windDirect
         <div className="day-info-box">
           <span className="day-box-title">Visibility</span>
           <div className="visibility-details">
-            <span className="visibility-distance">{() => visibility / 1000}</span>
+            <span className="visibility-distance">{() => data.visibility / 1000}</span>
             <span>km</span>
           </div>
 

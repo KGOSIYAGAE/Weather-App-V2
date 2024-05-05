@@ -280,7 +280,7 @@ export default function Home() {
       });
   };
 
-  const dayData = {
+  const day = {
     UVIndex,
     windSpeed,
     windGust,
@@ -349,14 +349,7 @@ export default function Home() {
               <div className="display-mode"></div>
             </section>
 
-            {tab === "Today" ? (
-              <DayHighlights />
-            ) : (
-              <span>
-                {" "}
-                <WeekHighlight dailyWeather={dailyWeather} timeZone={timeZone} />
-              </span>
-            )}
+            {tab === "Today" ? <DayHighlights data={day} /> : <WeekHighlight dailyWeather={dailyWeather} timeZone={timeZone} />}
 
             {/*Grid section
             <section className="days-grid">
