@@ -8,15 +8,16 @@ import "@fontsource/roboto/";
 import { useState } from "react";
 import axios from "axios";
 import GaugeChart from "react-gauge-chart";
-
 import React from "react";
+import DayHighlights from "../../components/dayHighlight/DayHighlights";
+import WeekHighlight from "../../components/WeekHighlight/WeekHighlight";
 
 export default function Home() {
   const [cityName, setCityName] = useState("");
 
   //current data
   const [temp, setTemp] = useState(0);
-  const [timeZone, setTimeZone] = useState("");
+  const [timeZone, setTimeZone] = useState("Africa/Johannesburg");
   const [weatherIcon, setWeatherIcon] = useState("");
   const [weatherDescription, setWeatherDescription] = useState("");
   const [rainPercent, setRainPercent] = useState();
@@ -40,6 +41,9 @@ export default function Home() {
   const [dayTemp, setDayTemp] = useState(0);
   const [nightTemp, setNightTemp] = useState(0);
   const [dayIcon, setDayIcon] = useState("");
+
+  //Tab
+  const [tab, setTab] = useState("Today");
 
   const dayOptions = {
     weekday: "long",
@@ -123,6 +127,7 @@ export default function Home() {
     }
   };
 
+  /*
   const hadnleDayIcon = (weatherIcon) => {
     switch (weatherIcon) {
       case "01d":
@@ -194,14 +199,7 @@ export default function Home() {
         break;
     }
   };
-
-  const handleUVIIcon = (UVIndex) => {
-    return `/icons/uv_${Math.floor(UVIndex)}.svg`;
-  };
-
-  const handleVisibility = (visibility) => {
-    return visibility / 1000;
-  };
+*/
 
   const handleWindDirectin = (wind_deg) => {
     console.log(wind_deg);
@@ -282,6 +280,17 @@ export default function Home() {
       });
   };
 
+  const dayData = {
+    UVIndex,
+    windSpeed,
+    windGust,
+    windDirection,
+    sunrise,
+    sunset,
+    humidity,
+    visibility,
+  };
+
   return (
     <body>
       <div className="app-container">
@@ -297,7 +306,7 @@ export default function Home() {
           <div className="weather-info">
             <section className="info-section-a">
               {/*<WeatherSvg state={weatherIcon} width={180} height={180} />*/}
-              <img className="section-a-img" src={weatherIcon}></img>
+              <img className="section-a-img" src={weatherIcon === "" ? "../public/icons/not_available.svg" : weatherIcon}></img>
               <div className="info-temp">
                 <span className="weather-temp-txt">{Math.floor(temp)}</span>
                 <span className="degress-icon">°C</span>
@@ -330,11 +339,24 @@ export default function Home() {
             {/*Nav section*/}
             <section className="nav">
               <div className="tabs-section">
-                <span className="tab-title-today">Today</span>
-                <span className="tab-title-week">Week</span>
+                <span className="tab" onClick={() => setTab("Today")}>
+                  Today
+                </span>
+                <span className="tab" onClick={() => setTab("Week")}>
+                  Week
+                </span>
               </div>
               <div className="display-mode"></div>
             </section>
+
+            {tab === "Today" ? (
+              <DayHighlights />
+            ) : (
+              <span>
+                {" "}
+                <WeekHighlight dailyWeather={dailyWeather} timeZone={timeZone} />
+              </span>
+            )}
 
             {/*Grid section
             <section className="days-grid">
@@ -352,80 +374,7 @@ export default function Home() {
               ))}
             </section>*/}
 
-            <section className="days-grid">
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-              <div className="box">
-                <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                <div className="box-icon-container">
-                  {/*<WeatherSvg state={} width={60} height={60} />*/}
-                  <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-                </div>
-                <span className="box-temp-txt">
-                  {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-                </span>
-              </div>
-            </section>
-
-            {/*Grid section*/}
+            {/*Grid section*
             <section className="current-day">
               <span className="current-day-title">Today's Highlights</span>
               <div className="current-day-grid">
@@ -435,7 +384,7 @@ export default function Home() {
                     <img src={handleUVIIcon(UVIndex)} alt="windsock" className="uvi-icon" />
                   </div>
                 </div>
-                {/* */}
+                {/* *
                 <div className="day-info-box">
                   <span className="day-box-title">Wind Status</span>
                   <div className="wind-box">
@@ -462,7 +411,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* */}
+                {/* *
                 <div className="day-info-box">
                   <span className="day-box-title">Sunrise & Sunset</span>
                   <div className="sunrise">
@@ -474,7 +423,7 @@ export default function Home() {
                     <span>{new Date(sunset * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
                   </div>
                 </div>
-                {/* */}
+                {/* *
                 <div className="day-info-box">
                   <span className="day-box-title">Humidity</span>
                   <div className="humidity-details">
@@ -485,7 +434,7 @@ export default function Home() {
                     <img src="/icons/raindrop.svg" alt="windsock" className="daily-weather-icon" />
                   </div>
                 </div>
-                {/* */}
+                {/* *
                 <div className="day-info-box">
                   <span className="day-box-title">Visibility</span>
                   <div className="visibility-details">
@@ -495,7 +444,7 @@ export default function Home() {
 
                   <span className="">Average 😉</span>
                 </div>
-                {/* */}
+                {/* *
                 <div className="day-info-box">
                   <span className="day-box-title">Air Quality</span>
                   <div className="air-details">
@@ -507,7 +456,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </section>
+            </section>*/}
           </div>
         </section>
       </div>

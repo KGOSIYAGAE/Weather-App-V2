@@ -162,19 +162,22 @@ body {
   gap: 20px;
 }
 
-.tab-title-today {
+.tab {
   color: #b2b2b2;
   font-size: 18px;
   font-weight: 500;
+  cursor: pointer;
 }
 
-.tab-title-week {
+.tab_active {
   color: black;
   font-size: 18px;
   font-weight: 500;
   border-bottom: 1px black solid;
+  cursor: pointer;
 }
 
+/**/
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 115px);
