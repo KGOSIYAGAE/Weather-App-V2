@@ -1,5 +1,6 @@
 import React from "react";
 import "./DayHighlights.css";
+import Pressure from "../Pressure/Pressure";
 
 export default function DayHighlights({ data }) {
   const handleUVIIcon = (UVIndex) => {
@@ -166,13 +167,7 @@ export default function DayHighlights({ data }) {
         {/* */}
         <div className="day-info-box">
           <span className="day-box-title">Air Quality</span>
-          <div className="air-details">
-            <span className="air-qaulity"></span>
-            <span></span>
-          </div>
-          <div className="air-description">
-            <img src="/icons/pressure_low.svg" alt="windsock" className="daily-weather-icon" />
-          </div>
+          <Pressure />
         </div>
       </div>
     </section>
