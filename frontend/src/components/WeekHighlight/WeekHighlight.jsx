@@ -88,82 +88,18 @@ export default function WeekHighlight({ dailyWeather, timeZone }) {
     <div className="week-container">
       <span className="current-day-title">This Week's Highlights</span>
       <section className="days-grid">
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
+        {dailyWeather.slice(1).map((day) => (
+          <div key={day.dt} className="box">
+            <span className="box-title">{new Date(day.dt * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
+            <div className="box-icon-container">
+              {/*<WeatherSvg state={} width={60} height={60} />*/}
+              <img className="daily-weather-icon" src={hadnleDayIcon(day.weather[0].icon)}></img>
+            </div>
+            <span className="box-temp-txt">
+              {Math.floor(day.temp.day)}°<span className="box-temp-txt2">{Math.floor(day.temp.night)}°</span>
+            </span>
           </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
-
-        <div className="box">
-          <span className="box-title">{new Date(11 * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-          <div className="box-icon-container">
-            {/*<WeatherSvg state={} width={60} height={60} />*/}
-            <img className="daily-weather-icon" src={hadnleDayIcon("02d")}></img>
-          </div>
-          <span className="box-temp-txt">
-            {Math.floor(11)}°<span className="box-temp-txt2">{Math.floor(10)}°</span>
-          </span>
-        </div>
+        ))}
       </section>
     </div>
   );

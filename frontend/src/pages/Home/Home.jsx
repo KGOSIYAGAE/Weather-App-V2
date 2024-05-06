@@ -201,45 +201,6 @@ export default function Home() {
   };
 */
 
-  const handleWindDirectin = (wind_deg) => {
-    console.log(wind_deg);
-    switch (true) {
-      case wind_deg > 0 && wind_deg < 44:
-        return setWindDirection("N");
-        break;
-      case wind_deg >= 45 && wind_deg <= 89:
-        return setWindDirection("NE");
-        break;
-
-      case wind_deg >= 90 && wind_deg <= 134:
-        return setWindDirection("E");
-        break;
-      case wind_deg >= 135 && wind_deg <= 179:
-        return setWindDirection("SE");
-        break;
-
-      case wind_deg >= 180 && wind_deg <= 224:
-        return setWindDirection("S");
-        break;
-
-      case wind_deg >= 225 && wind_deg <= 269:
-        return setWindDirection("SW");
-        break;
-
-      case wind_deg >= 270 && wind_deg <= 314:
-        return setWindDirection("W");
-        break;
-
-      case wind_deg >= 315 && wind_deg <= 360:
-        return setWindDirection("NW");
-        break;
-
-      default:
-        return setWindDirection("N/A");
-        break;
-    }
-  };
-
   const handleWeatherSearch = async () => {
     const data = { cityName };
 
@@ -271,7 +232,6 @@ export default function Home() {
         setNightTemp();
         setDayWeatherIcon();*/
 
-        handleWindDirectin(wind_deg);
         hadnleWeatherIcon(response.data.current.weather[0].icon);
       })
       .catch((error) => {
@@ -284,7 +244,7 @@ export default function Home() {
     UVIndex,
     windSpeed,
     windGust,
-    windDirection,
+    wind_deg,
     sunrise,
     sunset,
     humidity,
@@ -350,106 +310,6 @@ export default function Home() {
             </section>
 
             {tab === "Today" ? <DayHighlights data={day} /> : <WeekHighlight dailyWeather={dailyWeather} timeZone={timeZone} />}
-
-            {/*Grid section
-            <section className="days-grid">
-              {dailyWeather.slice(1).map((day) => (
-                <div key={day.dt} className="box">
-                  <span className="box-title">{new Date(day.dt * 1000).toLocaleDateString({ timeZone }, dayOptions)}</span>
-                  <div className="box-icon-container">
-                    {/*<WeatherSvg state={} width={60} height={60} />
-                    <img className="daily-weather-icon" src={hadnleDayIcon(day.weather[0].icon)}></img>
-                  </div>
-                  <span className="box-temp-txt">
-                    {Math.floor(day.temp.day)}°<span className="box-temp-txt2">{Math.floor(day.temp.night)}°</span>
-                  </span>
-                </div>
-              ))}
-            </section>*/}
-
-            {/*Grid section*
-            <section className="current-day">
-              <span className="current-day-title">Today's Highlights</span>
-              <div className="current-day-grid">
-                <div className="day-info-box">
-                  <span className="day-box-title">UV Index</span>
-                  <div className="uvi-box">
-                    <img src={handleUVIIcon(UVIndex)} alt="windsock" className="uvi-icon" />
-                  </div>
-                </div>
-                {/* *
-                <div className="day-info-box">
-                  <span className="day-box-title">Wind Status</span>
-                  <div className="wind-box">
-                    <div className="wind-details">
-                      <div className="wind-details-wind">
-                        <span className="wind-speed">{windSpeed}</span>
-                        <div className="wind-speed-text">
-                          <span>KM/H</span>
-                          <span>Wind</span>
-                        </div>
-                      </div>
-                      <div className="wind-details-gust">
-                        <span className="wind-speed">{windGust}</span>
-                        <div className="wind-speed-text">
-                          <span>KM/H</span>
-                          <span>Gust</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="wind-direction">
-                      <img src="../public/icons/compass.svg" alt="windsock" className="compass-icon" />
-                      <span className="wind-d-text">{windDirection}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* *
-                <div className="day-info-box">
-                  <span className="day-box-title">Sunrise & Sunset</span>
-                  <div className="sunrise">
-                    <img src="/icons/sunrise.svg" alt="windsock" className="daily-weather-icon" />
-                    <span>{new Date(sunrise * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
-                  </div>
-                  <div className="sunrise">
-                    <img src="/icons/sunset.svg" alt="windsock" className="daily-weather-icon" />
-                    <span>{new Date(sunset * 1000).toLocaleTimeString({ timezone: "Africa/Johannesburg" })}</span>
-                  </div>
-                </div>
-                {/* *
-                <div className="day-info-box">
-                  <span className="day-box-title">Humidity</span>
-                  <div className="humidity-details">
-                    <span className="humidity-total">{humidity}</span>
-                    <span>%</span>
-                  </div>
-                  <div className="humidity-description">
-                    <img src="/icons/raindrop.svg" alt="windsock" className="daily-weather-icon" />
-                  </div>
-                </div>
-                {/* *
-                <div className="day-info-box">
-                  <span className="day-box-title">Visibility</span>
-                  <div className="visibility-details">
-                    <span className="visibility-distance">{handleVisibility(visibility)}</span>
-                    <span>km</span>
-                  </div>
-
-                  <span className="">Average 😉</span>
-                </div>
-                {/* *
-                <div className="day-info-box">
-                  <span className="day-box-title">Air Quality</span>
-                  <div className="air-details">
-                    <span className="air-qaulity"></span>
-                    <span></span>
-                  </div>
-                  <div className="air-description">
-                    <img src="/icons/pressure_low.svg" alt="windsock" className="daily-weather-icon" />
-                  </div>
-                </div>
-              </div>
-            </section>*/}
           </div>
         </section>
       </div>

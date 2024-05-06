@@ -130,6 +130,23 @@
   gap: 10px;
 }
 
+.humidity-container {
+}
+
+.humidity-details {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.humidity-details span:nth-child(2) {
+  padding-top: 5px;
+}
+
+.humidity-icon {
+  width: 80px;
+  height: 80px;
+}
+
 .pressure-gauge {
   width: 100px;
 }
