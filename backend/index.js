@@ -37,12 +37,26 @@ const getCoordinates = async (cityName) => {
   }
 };
 
-//Get coordinates of location
+//Get weather of User Search location
 app.post("/weather", async (req, res) => {
   //&exclude=minutely,hourly,alert&appid=${APIKey}`
   try {
     const { cityName } = req.body;
     const { lat, lon } = await getCoordinates(cityName || "Kimberley");
+
+    const response = await axios.get(WEATHER_URL + `lat=${lat}&lon=${lon}&units=metric&appid=${APIKey}`);
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).send({ message: error.message });
+  }
+});
+
+//Get weather of Userlocation
+app.post("/weather-location", async (req, res) => {
+  //&exclude=minutely,hourly,alert&appid=${APIKey}`
+  try {
+    const { lat, lon } = req.body;
 
     const response = await axios.get(WEATHER_URL + `lat=${lat}&lon=${lon}&units=metric&appid=${APIKey}`);
     res.status(200).json(response.data);

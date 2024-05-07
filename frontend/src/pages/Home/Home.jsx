@@ -127,80 +127,7 @@ export default function Home() {
     }
   };
 
-  /*
-  const hadnleDayIcon = (weatherIcon) => {
-    switch (weatherIcon) {
-      case "01d":
-        return "../public/icons/clear_day.svg";
-        break;
-      case "01n":
-        return "../public/icons/clear_night.svg";
-        break;
-
-      case "02d":
-        return "../public/icons/partly_cloudy_day.svg";
-        break;
-      case "02n":
-        return "../public/icons/partly_cloudy_night.svg";
-        break;
-
-      case "03d":
-        return "../public/icons/cloudy.svg";
-        break;
-      case "03n":
-        return "../public/icons/cloudy.svg";
-        break;
-
-      case "04d":
-        return "../public/icons/overcast.svg";
-        break;
-      case "04n":
-        return "../public/icons/overcast.svg";
-        break;
-
-      case "09d":
-        return "../public/icons/rain.svg";
-        break;
-      case "09n":
-        return "../public/icons/rain.svg";
-        break;
-
-      case "10d":
-        return "../public/icons/partly_cloudy_day_rain.svg";
-        break;
-      case "10n":
-        return "../public/icons/partly_cloudy_night_rain.svg";
-        break;
-
-      case "11d":
-        return "../public/icons/thunderstorms_rain.svg";
-        break;
-
-      case "11n":
-        return "../public/icons/thunderstorms_rain.svg";
-        break;
-
-      case "13d":
-        return "../public/icons/snow.svg";
-        break;
-      case "13n":
-        return "../public/icons/snow.svg";
-        break;
-
-      case "50d":
-        return "../public/icons/mist.svg";
-        break;
-      case "50n":
-        return "../public/icons/mist.svg";
-        break;
-
-      default:
-        return "../public/icons/not_available.svg";
-        break;
-    }
-  };
-*/
-
+  //Api Call Method
   const apiCall = async (data, path) => {
     await axios
       .post(`http://localhost:3000/${path}`, data)
@@ -234,6 +161,7 @@ export default function Home() {
       });
   };
 
+  //Load Data onfirst load using current user location
   useEffect(() => {
     if (navigator.onLine) {
       if (navigator.geolocation) {
@@ -249,6 +177,7 @@ export default function Home() {
     }
   }, []);
 
+  //Search for specific location
   const handleWeatherSearch = async () => {
     const data = { cityName };
     const path = "weather";
