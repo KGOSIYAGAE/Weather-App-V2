@@ -4,7 +4,7 @@ import Pressure from "../Pressure/Pressure";
 
 export default function DayHighlights({ data }) {
   const handleUVIIcon = (UVIndex) => {
-    return `/icons/uv_${Math.floor(UVIndex)}.svg`;
+    return UVIndex <= 11 ? `/icons/uv_${Math.floor(UVIndex)}.svg` : `/icons/uv_12_15.png`;
   };
 
   const handleVisibility = (visibility) => {

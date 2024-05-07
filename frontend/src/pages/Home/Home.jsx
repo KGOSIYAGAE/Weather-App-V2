@@ -5,7 +5,7 @@ import { WeatherSvg } from "weather-icons-animated";
 import { WiCloud } from "react-icons/wi";
 import { GiHeavyRain } from "react-icons/gi";
 import "@fontsource/roboto/";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import GaugeChart from "react-gauge-chart";
 import React from "react";
@@ -201,11 +201,9 @@ export default function Home() {
   };
 */
 
-  const handleWeatherSearch = async () => {
-    const data = { cityName };
-
+  const apiCall = async (data, path) => {
     await axios
-      .post("http://localhost:3000/weather", data)
+      .post(`http://localhost:3000/${path}`, data)
       .then((response) => {
         //Current weather data
         setTemp(response.data.current.temp);
@@ -228,16 +226,33 @@ export default function Home() {
         //Week weather code
         setDailyWeather([...response.data.daily]);
         console.log(response.data);
-        /*setDayTemp();
-        setNightTemp();
-        setDayWeatherIcon();*/
 
         hadnleWeatherIcon(response.data.current.weather[0].icon);
       })
       .catch((error) => {
-        alert("There was an error, check console.");
-        console.log(error);
+        console.log(`Error: ${error}`);
       });
+  };
+
+  useEffect(() => {
+    if (navigator.onLine) {
+      if (navigator.geolocation) {
+        const userLocation = navigator.geolocation.getCurrentPosition((position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          };
+          const path = "weather-location";
+          apiCall(location, path);
+        });
+      }
+    }
+  }, []);
+
+  const handleWeatherSearch = async () => {
+    const data = { cityName };
+    const path = "weather";
+    apiCall(data, path);
   };
 
   const day = {
@@ -287,7 +302,7 @@ export default function Home() {
               </div>
               <div className="image-box">
                 <img src="/new_york.jpg" alt="" className="city-image" />
-                <h4 className="city-name-txt">{cityName.charAt(0).toUpperCase() + cityName.slice(1)}</h4>
+                <h4 className="city-name-txt">{cityName === "" ? timeZone : cityName.charAt(0).toUpperCase() + cityName.slice(1)}</h4>
               </div>
             </section>
           </div>
