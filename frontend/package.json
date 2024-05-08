@@ -16,7 +16,8 @@
     "react-dom": "^18.2.0",
     "react-gauge-chart": "^0.5.1",
     "react-gauge-component": "^1.2.2",
-    "react-gauges": "^1.0.0"
+    "react-gauges": "^1.0.0",
+    "recharts": "^2.12.6"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
