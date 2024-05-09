@@ -193,6 +193,7 @@ export default function Home() {
     sunset,
     humidity,
     visibility,
+    pressure,
   };
 
   return (

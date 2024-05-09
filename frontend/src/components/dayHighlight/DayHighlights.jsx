@@ -95,6 +95,36 @@ export default function DayHighlights({ data }) {
     }
   };
 
+  const handlePressureDescription = (pressure) => {
+    switch (true) {
+      case pressure >= 1020:
+        return "Pressure is High";
+        break;
+      case pressure <= 1000 && pressure >= 980:
+        return "Pressure is Low";
+        break;
+
+      default:
+        return "Pressure is Very Low";
+        break;
+    }
+  };
+
+  const handlePressureIcon = (pressure) => {
+    switch (true) {
+      case pressure >= 1020:
+        return "../public/icons/pressure_high.svg";
+        break;
+      case pressure <= 1000 && pressure >= 980:
+        return "../public/icons/pressure_low.svg";
+        break;
+
+      default:
+        return "../public/icons/pressure_low.svg";
+        break;
+    }
+  };
+
   return (
     <section className="current-day">
       <span className="current-day-title">Today's Highlights</span>
@@ -166,8 +196,15 @@ export default function DayHighlights({ data }) {
         </div>
         {/* */}
         <div className="day-info-box">
-          <span className="day-box-title">Air Quality</span>
-          <Pressure />
+          <span className="day-box-title">Pressure</span>
+          <div className="pressure-container">
+            <span className="pressure-text">{data.pressure}</span>
+            <span>hPa</span>
+          </div>
+          <div className="p-items">
+            <img src={handlePressureIcon(data.pressure)} alt="pressure" className="p-icon" />
+            <span>{handlePressureDescription(data.pressure)}</span>
+          </div>
         </div>
       </div>
     </section>
