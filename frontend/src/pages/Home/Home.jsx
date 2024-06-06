@@ -130,7 +130,7 @@ export default function Home() {
   //Api Call Method
   const apiCall = async (data, path) => {
     await axios
-      .post(`http://localhost:3000/${path}`, data)
+      .post(`http://localhost:3001/${path}`, data)
       .then((response) => {
         //Current weather data
         setTemp(response.data.current.temp);
@@ -181,6 +181,7 @@ export default function Home() {
   const handleWeatherSearch = async () => {
     const data = { cityName };
     const path = "weather";
+    console.log("Heelo");
     apiCall(data, path);
   };
 

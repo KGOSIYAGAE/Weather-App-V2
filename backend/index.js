@@ -3,6 +3,7 @@ import { PORT } from "./config/config.js";
 import axios from "axios";
 import bodyParser from "body-parser";
 import cors from "cors";
+import "dotenv/config";
 
 const app = express();
 const GEO_URL = "http://api.openweathermap.org/";
@@ -11,7 +12,6 @@ const APIKey = "2f52a3f70a2267490561f6d2de992950";
 const limit = 1;
 
 const WEATHER_URL = "https://api.openweathermap.org/data/3.0/onecall?";
-//https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
 //Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.use(
 //Method Get coordinates of location
 const getCoordinates = async (cityName) => {
   try {
-    const response = await axios.get(GEO_URL + `geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${APIKey}`);
+    const response = await axios.get(GEO_URL + `geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${env.proccess.APIKey}`);
     const results = response.data[0];
     return results;
   } catch (error) {
